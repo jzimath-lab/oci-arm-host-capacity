@@ -21,7 +21,7 @@ jobs:
 
       - name: Write Private Key to file
         run: |
-          printf '%s' "${{ secrets.OCI_PRIVATE_KEY_FILENAME }}" > /home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem
+          printf '%s' "${{ secrets.OCI_SSH_PRIVATE_KEY }}" > /home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem
           chmod 600 /home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem
 
       - name: Create .env file
