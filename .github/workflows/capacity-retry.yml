@@ -19,13 +19,18 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-progress
 
+      - name: Write Private Key to file
+        run: |
+          echo "${{ secrets.OCI_PRIVATE_KEY_FILENAME }}" > /home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem
+          chmod 600 /home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem
+
       - name: Create .env file
         run: |
           echo "OCI_REGION=${{ secrets.OCI_REGION }}" > .env
           echo "OCI_USER_ID=${{ secrets.OCI_USER_ID }}" >> .env
           echo "OCI_TENANCY_ID=${{ secrets.OCI_TENANCY_ID }}" >> .env
           echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_KEY_FINGERPRINT }}" >> .env
-          echo "OCI_PRIVATE_KEY_FILENAME=${{ secrets.OCI_PRIVATE_KEY_FILENAME }}" >> .env
+          echo "OCI_PRIVATE_KEY_FILENAME=/home/runner/work/oci-arm-host-capacity/oci-arm-host-capacity/privatekey.pem" >> .env
           echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
           echo "OCI_IMAGE_ID=${{ secrets.OCI_IMAGE_ID }}" >> .env
           echo "OCI_OCPUS=4" >> .env
